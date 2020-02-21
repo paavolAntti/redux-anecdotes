@@ -19,11 +19,8 @@ const AnecdoteList = () => {
 	}
 
 	const notify = (content) => {
-		console.log('voted anecdote: ', content)
-		//setTimeout tähän
 		dispatch(setNotification(`you voted for ${content}`, 5))
 	}
-
 	return (
 		<div>
 			{anecdotes.map(anecdote =>

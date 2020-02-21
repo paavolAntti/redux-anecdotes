@@ -1,3 +1,4 @@
+let timeoutID
 
 export const setNotification = (message, freezetime) => {
 	return async dispatch => {
@@ -7,9 +8,11 @@ export const setNotification = (message, freezetime) => {
 				message: message
 			}
 		})
-		setTimeout(() => {
+		clearTimeout(timeoutID)
+		timeoutID = setTimeout(() => {
 			dispatch(setNull())
-		}, freezetime*1000)	
+		}, freezetime*1000)
+
 	}
 }
 
@@ -17,6 +20,7 @@ const setNull = () => {
 	return {
 		type: 'NULL'
 	}
+	
 }
 
 const notificationReducer = (state = null, action) => {
