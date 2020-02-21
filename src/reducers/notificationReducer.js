@@ -1,15 +1,19 @@
 
-export const notifyAboutAnecdote = (anecdote, message) => {
-	return {
-		type: 'NOTIFY',
-		data: {
-			anecdote,
-			message: message
-		}
+export const setNotification = (message, freezetime) => {
+	return async dispatch => {
+		dispatch({
+			type: 'NOTIFY',
+			data: {
+				message: message
+			}
+		})
+		setTimeout(() => {
+			dispatch(setNull())
+		}, freezetime*1000)	
 	}
 }
 
-export const setNull = () => {
+const setNull = () => {
 	return {
 		type: 'NULL'
 	}
@@ -19,8 +23,7 @@ const notificationReducer = (state = null, action) => {
 	switch (action.type) {
 		case 'NOTIFY':
 			console.log('actiondata: ', action.data)
-			const newState = `you ${action.data.message} '${action.data.anecdote}'`
-			return newState
+			return action.data
 		case 'NULL':
 			return null
 		default:
